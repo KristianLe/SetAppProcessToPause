@@ -1,0 +1,9 @@
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\bin\Debug\SetAppProcessToPause.exe
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\bin\Debug\SetAppProcessToPause.pdb
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.csprojResolveAssemblyReference.cache
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.Form1.resources
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.Properties.Resources.resources
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.csproj.GenerateResource.Cache
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.csproj.CoreCompileInputs.cache
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.exe
+c:\users\mika\documents\visual studio 2017\Projects\SetAppProcessToPause\SetAppProcessToPause\obj\Debug\SetAppProcessToPause.pdb
