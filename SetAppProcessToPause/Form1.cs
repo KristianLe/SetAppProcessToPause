@@ -25,15 +25,15 @@ namespace SetAppProcessToPause
             InitializeComponent();
             hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
             hook.RegisterHotKey(SetAppProcessToPause.ModifierKeys.Control, Keys.F12);
-            runningProcessesListBox.Items.AddRange(
-                Process.GetProcesses().Select((Process process) =>
+            object[] processesRows = Process.GetProcesses().Select((Process process) =>
             {
-                //string result = String.Format("{0,-25} {1,5} {2,5}", process.ProcessName, process.Id.ToString(), process.Responding.ToString());
-                string result = String.Format("{0,25}", process.ProcessName.Normalize());
+                string processState = process.Responding ? "R": "P";
+                string row = String.Format("{0, -10} {1, -2} {2, -30}", process.Id.ToString(), processState, process.ProcessName);
+                return (object)row;
+            }).ToArray();
 
-                int aw = result.Length;
-                return (object)result;
-            }).ToArray());
+            runningProcessesListBox.Items.AddRange(processesRows);
+
         }
 
 

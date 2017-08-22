@@ -67,6 +67,7 @@
             // 
             // runningProcessesListBox
             // 
+            this.runningProcessesListBox.ColumnWidth = 20;
             this.runningProcessesListBox.FormattingEnabled = true;
             this.runningProcessesListBox.IntegralHeight = false;
             this.runningProcessesListBox.Location = new System.Drawing.Point(13, 48);
