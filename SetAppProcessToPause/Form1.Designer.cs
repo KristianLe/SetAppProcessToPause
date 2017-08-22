@@ -42,7 +42,6 @@
             this.notifyIcon1 = new System.Windows.Forms.NotifyIcon(this.components);
             this.label5 = new System.Windows.Forms.Label();
             this.stateLabel = new System.Windows.Forms.Label();
-            this.richTextBox1 = new System.Windows.Forms.RichTextBox();
             this.SuspendLayout();
             // 
             // toChoosedProcessesButton
@@ -128,6 +127,7 @@
             this.button1.TabIndex = 9;
             this.button1.Text = "Обновить";
             this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // errorLabel
             // 
@@ -160,20 +160,11 @@
             this.stateLabel.TabIndex = 12;
             this.stateLabel.Text = "HZ";
             // 
-            // richTextBox1
-            // 
-            this.richTextBox1.Location = new System.Drawing.Point(16, 243);
-            this.richTextBox1.Name = "richTextBox1";
-            this.richTextBox1.Size = new System.Drawing.Size(407, 144);
-            this.richTextBox1.TabIndex = 13;
-            this.richTextBox1.Text = "";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(587, 428);
-            this.Controls.Add(this.richTextBox1);
+            this.ClientSize = new System.Drawing.Size(587, 272);
             this.Controls.Add(this.stateLabel);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.errorLabel);
@@ -209,7 +200,6 @@
         private System.Windows.Forms.NotifyIcon notifyIcon1;
         private System.Windows.Forms.Label label5;
         private System.Windows.Forms.Label stateLabel;
-        private System.Windows.Forms.RichTextBox richTextBox1;
     }
 }
 

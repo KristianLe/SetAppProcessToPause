@@ -20,22 +20,59 @@ namespace SetAppProcessToPause
         public static extern bool DebugActiveProcessStop(uint dwProcessId);
 
         KeyboardHook hook = new KeyboardHook();
+
+        List<int> selectedProcesses = new List<int>();
         public Form1()
         {
             InitializeComponent();
             hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
             hook.RegisterHotKey(SetAppProcessToPause.ModifierKeys.Control, Keys.F12);
-            object[] processesRows = Process.GetProcesses().Select((Process process) =>
-            {
-                string processState = process.Responding ? "R": "P";
-                string row = String.Format("{0, -10} {1, -2} {2, -30}", process.Id.ToString(), processState, process.ProcessName);
-                return (object)row;
-            }).ToArray();
 
-            runningProcessesListBox.Items.AddRange(processesRows);
-
+            updateProcessList();
         }
 
+        void updateProcessList()
+        {
+            List<object> generalProcessesRowsList = Process.GetProcesses().Select((Process process) =>
+            {
+                if (!selectedProcesses.Contains(process.Id))
+                {
+                    string processState = process.Responding ? "R" : "P";
+                    string row = String.Format("{0, -10} {1, -2} {2, -30}", process.Id.ToString(), processState, process.ProcessName);
+                    return (object)row;
+                }
+                else return null;
+            }).ToList();
+
+            generalProcessesRowsList.RemoveAll(item => item == null);
+
+            object[] generalProcessesRows = generalProcessesRowsList.ToArray();
+
+            runningProcessesListBox.Items.Clear();
+            runningProcessesListBox.Items.AddRange(generalProcessesRows);
+
+            List<object> selectedProcessesRowsList = Process.GetProcesses().Select((Process process) =>
+            {
+                if (selectedProcesses.Contains(process.Id))
+                {
+                    string processState = process.Responding ? "R" : "P";
+                    string row = String.Format("{0, -10} {1, -2} {2, -30}", process.Id.ToString(), processState, process.ProcessName);
+                    return (object)row;
+                }
+                else return null;
+            }).ToList();
+
+            selectedProcessesRowsList.RemoveAll(item => item == null);
+
+            object[] selectedProcessesRows = selectedProcessesRowsList.ToArray();
+
+            try
+            {
+                choosedProcessesListBox.Items.Clear();
+                choosedProcessesListBox.Items.AddRange(selectedProcessesRows);
+            }
+            catch (Exception ex) { }
+        }
 
         void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -46,7 +83,7 @@ namespace SetAppProcessToPause
                     try
                     {
                         string processStr = (string)obj;
-                        string uid = processStr.Substring(processStr.LastIndexOf(' '));
+                        string uid = processStr.Substring(0, processStr.IndexOf(' '));
                         DebugActiveProcess(Convert.ToUInt32(uid));
                     }
                     catch (Exception ex) { }
@@ -60,8 +97,8 @@ namespace SetAppProcessToPause
                     try
                     {
                         string processStr = (string)obj;
-                        string uid = processStr.Substring(processStr.LastIndexOf(' '));
-                        DebugActiveProcessStop(Convert.ToUInt32(uid));
+                        string uid = processStr.Substring(0, processStr.IndexOf(' '));
+                        DebugActiveProcessStop(Convert.ToUInt32(Int32.Parse(uid)));
                     }
                     catch (Exception ex) { }
                 }
@@ -71,9 +108,14 @@ namespace SetAppProcessToPause
 
         private void toChoosedProcessesButton_Click(object sender, EventArgs e)
         {
-            try
-            {
+            try {
                 choosedProcessesListBox.Items.Add(runningProcessesListBox.SelectedItem);
+               
+
+                string processStr = (string)runningProcessesListBox.SelectedItem;
+                string uid = processStr.Substring(0, processStr.IndexOf(' '));
+                selectedProcesses.Add(Int32.Parse(uid));
+
                 runningProcessesListBox.Items.Remove(runningProcessesListBox.SelectedItem);
             } 
             catch(Exception ex)
@@ -87,6 +129,12 @@ namespace SetAppProcessToPause
         {
             try { 
                 runningProcessesListBox.Items.Add(choosedProcessesListBox.SelectedItem);
+               
+
+                string processStr = (string)choosedProcessesListBox.SelectedItem;
+                string uid = processStr.Substring(0, processStr.IndexOf(' '));
+                selectedProcesses.Remove(Int32.Parse(uid));
+
                 choosedProcessesListBox.Items.Remove(choosedProcessesListBox.SelectedItem);
             }
             catch (Exception ex)
@@ -94,6 +142,11 @@ namespace SetAppProcessToPause
                 errorLabel.ForeColor = Color.Red;
                 errorLabel.Text = ex.ToString();
             }
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            updateProcessList();
         }
     }
 }
